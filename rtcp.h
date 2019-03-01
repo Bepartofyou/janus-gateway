@@ -519,7 +519,8 @@ int janus_rtcp_pli(char *packet, int len);
  * @returns The message data length in bytes, if successful, -1 on errors */
 int janus_rtcp_nacks(char *packet, int len, GSList *nacks);
 
-/*! \brief Method to generate a new RTCP transport wide message to report reception stats
+/*! \brief Method to generate a new RTCP transport wide message to report reception stats 
+ * (https://tools.ietf.org/html/draft-holmer-rmcat-transport-wide-cc-extensions-01) (https://www.jianshu.com/p/ab32a8a3552f)
  * @param[in] packet The buffer data (MUST be at least 16 chars)
  * @param[in] len The message data length in bytes
  * @param[in] ssrc SSRC of the origin stream
