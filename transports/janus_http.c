@@ -1003,6 +1003,7 @@ gboolean janus_http_is_admin_api_enabled(void) {
 
 int janus_http_send_message(janus_transport_session *transport, void *request_id, gboolean admin, json_t *message) {
 	JANUS_LOG(LOG_HUGE, "Got a %s API %s to send (%p)\n", admin ? "admin" : "Janus", request_id ? "response" : "event", transport);
+	JANUS_LOG_JSON(LOG_ERR, message, "Got a %s API %s to send (%p) \r\njson:%s\n", admin ? "admin" : "Janus", request_id ? "response" : "event", transport);
 	if(message == NULL) {
 		JANUS_LOG(LOG_ERR, "No message...\n");
 		return -1;

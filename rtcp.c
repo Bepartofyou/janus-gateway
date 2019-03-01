@@ -659,8 +659,20 @@ int janus_rtcp_process_incoming_rtp(janus_rtcp_context *ctx, char *packet, int l
 	int64_t transit = arrival - ntohl(rtp->timestamp);
 	int64_t d = transit - ctx->transit;
 	if (d < 0) d = -d;
+    JANUS_LOG(LOG_ERR, "rtcp jitter transit, ssrc:%u type:%d arrival:%ld "
+                       "ts:%u transit:%ld distans:%ld jitter:%f\n",
+                       ntohl(rtp->ssrc), rtp->type,
+                       arrival, ntohl(rtp->timestamp),
+                       transit, d, ctx->jitter);
+
 	ctx->transit = transit;
-	ctx->jitter += (1./16.) * ((double)d  - ctx->jitter);
+	if(ctx->rtp_recvd){
+		/* 第一次 arrival和transit 不在一个时间轴上 导致d比较大
+		* 从来计算的jitter也比较大，收敛比较慢
+		* 去掉第一次不准的情况 可以较快收敛
+		*/
+		ctx->jitter += (1./16.) * ((double)d  - ctx->jitter);
+	}
 
 	/* RTP packet received: it means we can start sending RR */
 	ctx->rtp_recvd = 1;
