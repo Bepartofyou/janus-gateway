@@ -2114,7 +2114,7 @@ static void janus_ice_cb_nice_recv(NiceAgent *agent, guint stream_id, guint comp
 		return;
 	}
 
-	JANUS_LOG(LOG_HUGE, "[%"SCNu64"] upd data len:%d\n", handle->handle_id, len);
+	JANUS_LOG(LOG_HUGE, "[%"SCNu64"] udp data len:%d\n", handle->handle_id, len);
 	/* What is this? */
 	if(janus_is_dtls(buf) || (!janus_is_rtp(buf, len) && !janus_is_rtcp(buf, len))) {
 		/* This is DTLS: either handshake stuff, or data coming from SCTP DataChannels */
