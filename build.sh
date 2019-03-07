@@ -4,6 +4,6 @@
 #./configure --prefix=/Users/wupengqiang/rtc/server/janus/deploy/exe   PKG_CONFIG_PATH=/usr/local/opt/openssl/lib/pkgconfig
 
 
-make
+make  -j8
 make install
 make configs

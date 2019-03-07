@@ -659,11 +659,11 @@ int janus_rtcp_process_incoming_rtp(janus_rtcp_context *ctx, char *packet, int l
 	int64_t transit = arrival - ntohl(rtp->timestamp);
 	int64_t d = transit - ctx->transit;
 	if (d < 0) d = -d;
-    JANUS_LOG(LOG_ERR, "rtcp jitter transit, ssrc:%u type:%d arrival:%ld "
-                       "ts:%u transit:%ld distans:%ld jitter:%f\n",
-                       ntohl(rtp->ssrc), rtp->type,
-                       arrival, ntohl(rtp->timestamp),
-                       transit, d, ctx->jitter);
+    // JANUS_LOG(LOG_ERR, "rtcp jitter transit, ssrc:%u type:%d arrival:%ld "
+    //                    "ts:%u transit:%ld distans:%ld jitter:%f\n",
+    //                    ntohl(rtp->ssrc), rtp->type,
+    //                    arrival, ntohl(rtp->timestamp),
+    //                    transit, d, ctx->jitter);
 
 	ctx->transit = transit;
 	if(ctx->rtp_recvd){
