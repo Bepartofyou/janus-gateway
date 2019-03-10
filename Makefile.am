@@ -234,6 +234,15 @@ transports_libjanus_http_la_LIBADD = $(transports_libadd) $(MHD_LDFLAGS)
 conf_DATA += conf/janus.transport.http.jcfg.sample
 EXTRA_DIST += conf/janus.transport.http.jcfg.sample.in
 CLEANFILES += conf/janus.transport.http.jcfg.sample
+
+transport_LTLIBRARIES += transports/libjanus_selfdefine.la
+transports_libjanus_selfdefine_la_SOURCES = transports/janus_selfdefine.c
+transports_libjanus_selfdefine_la_CFLAGS = $(transports_cflags) $(MHD_CFLAGS)
+transports_libjanus_selfdefine_la_LDFLAGS = $(transports_ldflags) $(MHD_LDFLAGS) $(MHD_LIBS)
+transports_libjanus_selfdefine_la_LIBADD = $(transports_libadd) $(MHD_LDFLAGS)
+conf_DATA += conf/janus.transport.selfdefine.jcfg.sample
+EXTRA_DIST += conf/janus.transport.selfdefine.jcfg.sample.in
+CLEANFILES += conf/janus.transport.selfdefine.jcfg.sample
 endif
 
 if ENABLE_WEBSOCKETS
@@ -361,6 +370,14 @@ plugins_libjanus_echotest_la_LDFLAGS = $(plugins_ldflags)
 plugins_libjanus_echotest_la_LIBADD = $(plugins_libadd)
 conf_DATA += conf/janus.plugin.echotest.jcfg.sample
 EXTRA_DIST += conf/janus.plugin.echotest.jcfg.sample
+
+plugin_LTLIBRARIES += plugins/libjanus_selfplugin.la
+plugins_libjanus_selfplugin_la_SOURCES = plugins/janus_selfplugin.c
+plugins_libjanus_selfplugin_la_CFLAGS = $(plugins_cflags)
+plugins_libjanus_selfplugin_la_LDFLAGS = $(plugins_ldflags)
+plugins_libjanus_selfplugin_la_LIBADD = $(plugins_libadd)
+conf_DATA += conf/janus.plugin.selfplugin.jcfg.sample
+EXTRA_DIST += conf/janus.plugin.selfplugin.jcfg.sample
 endif
 
 if ENABLE_PLUGIN_RECORDPLAY
