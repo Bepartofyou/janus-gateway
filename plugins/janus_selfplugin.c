@@ -536,6 +536,21 @@ void janus_echotest_incoming_rtp(janus_plugin_session *handle, int video, char *
 		}
 		if(g_atomic_int_get(&session->destroyed))
 			return;
+
+		if(video && session->video_active){
+			janus_rtp_header *header = (janus_rtp_header *)buf;
+			uint16_t seq_number = ntohs(header->seq_number);
+			uint32_t timestamp = ntohl(header->timestamp);
+			uint32_t ssrc = ntohl(header->ssrc);
+			if(notify_events && gateway->events_is_enabled()) {
+				/* selfdefine video extmap log */
+				json_t *info = json_object();
+				json_object_set_new(info, "ssrc", json_integer(ssrc));
+				json_object_set_new(info, "seq_number", json_integer(seq_number));
+				json_object_set_new(info, "timestamp", json_integer(timestamp));
+				gateway->notify_event(&janus_echotest_plugin, session->handle, info);
+			}
+		}
 		if(video && session->video_active && session->rtpmapid_extmap_id != -1) {
 			/* FIXME Just a way to debug Firefox simulcasting */
 			janus_rtp_header *header = (janus_rtp_header *)buf;
