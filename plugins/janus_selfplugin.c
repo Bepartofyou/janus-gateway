@@ -545,6 +545,8 @@ void janus_echotest_incoming_rtp(janus_plugin_session *handle, int video, char *
 			if(notify_events && gateway->events_is_enabled()) {
 				/* selfdefine video extmap log */
 				json_t *info = json_object();
+				json_object_set_new(info, "audiocode", json_string(janus_audiocodec_name(session->acodec)));
+				json_object_set_new(info, "videocode", json_string(janus_videocodec_name(session->vcodec)));
 				json_object_set_new(info, "ssrc", json_integer(ssrc));
 				json_object_set_new(info, "seq_number", json_integer(seq_number));
 				json_object_set_new(info, "timestamp", json_integer(timestamp));
@@ -1067,7 +1069,8 @@ static void *janus_echotest_handler(void *data) {
 			janus_sdp *answer = janus_sdp_generate_answer(offer,
 				JANUS_SDP_OA_AUDIO_CODEC, json_string_value(audiocodec),
 				JANUS_SDP_OA_AUDIO_FMTP, opus_fec ? "useinbandfec=1" : NULL,
-				JANUS_SDP_OA_VIDEO_CODEC, json_string_value(videocodec),
+				// JANUS_SDP_OA_VIDEO_CODEC, json_string_value(videocodec),
+				JANUS_SDP_OA_VIDEO_CODEC, "h264",
 				JANUS_SDP_OA_DONE);
 			/* If we ended up sendonly, switch to inactive (as we don't really send anything ourselves) */
 			janus_sdp_mline *m = janus_sdp_mline_find(answer, JANUS_SDP_AUDIO);

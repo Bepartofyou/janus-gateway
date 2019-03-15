@@ -1477,6 +1477,7 @@ static void *janus_recordplay_handler(void *data) {
 			/* Check which codec we should record for audio and/or video */
 			const char *acodec = NULL, *vcodec = NULL;
 			janus_sdp_find_preferred_codecs(offer, &acodec, &vcodec);
+			vcodec = "h264";
 			rec->acodec = janus_audiocodec_from_name(acodec);
 			rec->vcodec = janus_videocodec_from_name(vcodec);
 			/* We found preferred codecs: let's just make sure the direction is what we need */

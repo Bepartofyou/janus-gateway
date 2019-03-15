@@ -1052,7 +1052,8 @@ static void *janus_echotest_handler(void *data) {
 			janus_sdp *answer = janus_sdp_generate_answer(offer,
 				JANUS_SDP_OA_AUDIO_CODEC, json_string_value(audiocodec),
 				JANUS_SDP_OA_AUDIO_FMTP, opus_fec ? "useinbandfec=1" : NULL,
-				JANUS_SDP_OA_VIDEO_CODEC, json_string_value(videocodec),
+				// JANUS_SDP_OA_VIDEO_CODEC, json_string_value(videocodec),
+				JANUS_SDP_OA_VIDEO_CODEC, "h264",
 				JANUS_SDP_OA_DONE);
 			/* If we ended up sendonly, switch to inactive (as we don't really send anything ourselves) */
 			janus_sdp_mline *m = janus_sdp_mline_find(answer, JANUS_SDP_AUDIO);

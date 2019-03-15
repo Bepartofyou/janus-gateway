@@ -2846,6 +2846,7 @@ json_t *janus_plugin_handle_sdp(janus_plugin_session *plugin_session, janus_plug
 	/* Is this valid SDP? */
 	char error_str[512];
 	int audio = 0, video = 0, data = 0;
+	JANUS_LOG(LOG_VERB, "[%"SCNu64"] len:%d, Remote SDP:\n%s", ice_handle->handle_id, strlen((char*)sdp), (char*)sdp);
 	janus_sdp *parsed_sdp = janus_sdp_preparse(ice_handle, sdp, error_str, sizeof(error_str), &audio, &video, &data);
 	if(parsed_sdp == NULL) {
 		JANUS_LOG(LOG_ERR, "[%"SCNu64"] Couldn't parse SDP... %s\n", ice_handle->handle_id, error_str);
